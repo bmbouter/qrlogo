@@ -7,8 +7,6 @@ Example Output
 ==============
 
 .. image:: https://github.com/bmbouter/qrlogo/raw/master/output_example.png
-   :scale: 50 %
-   :align: center
 
 Here is the URL used to generate the above example::
 
