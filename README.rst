@@ -10,7 +10,7 @@ Example Output
 
 Here is the URL used to generate the above example::
 
-index.html?logo=http://www.ces.ncsu.edu/plymouth/ent/pics/ncsu_logo_1.gif&qr_w=500&qr_h=500&logo_w=100&logo_h=100&logo_x_offset=300&logo_y_offset=300&text=www.ncsu.edu&/
+http://bmbouter.github.com/qrlogo/?logo=http://www.ces.ncsu.edu/plymouth/ent/pics/ncsu_logo_1.gif&qr_w=500&qr_h=500&logo_w=100&logo_h=100&logo_x_offset=300&logo_y_offset=300&text=www.ncsu.edu&/
 
 Usage
 =====
