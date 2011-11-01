@@ -1,0 +1,63 @@
+<html>                                                                  
+ <head>                                                                  
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>          
+ <script type="text/javascript" src="https://raw.github.com/jeromeetienne/jquery-qrcode/master/jquery.qrcode.min.js"></script>
+ <script type="text/javascript">                                         
+    function gup( name )
+    {
+          name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+          var regexS = "[\\?&]"+name+"=([^&#]*)";
+          var regex = new RegExp( regexS );
+          var results = regex.exec( window.location.href );
+          if( results == null )
+            return "";
+          else
+            return results[1];
+    }
+
+    $(function() {
+        var logo_x_offset = gup("logo_x_offset");
+        var logo_y_offset = gup("logo_y_offset");
+        var qr_w = gup("qr_w");
+        var qr_h = gup("qr_h");
+        var text = gup("text");
+
+        $('#qrcode').qrcode({ width: qr_w, height: qr_h, text: text });
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var ctx = canvas.getContext("2d");  
+
+        var logo_width = gup("logo_w");
+        var logo_height = gup("logo_h");
+        ctx.fillStyle = "rgb(255,255,255)";
+        ctx.fillRect(logo_x_offset, logo_y_offset, logo_width, logo_height);
+
+        var img = new Image();
+        img.addEventListener('load', function () {
+            ctx.drawImage(this, logo_x_offset, logo_y_offset, logo_width, logo_height);
+            canvas.style.display = "none";
+            try
+            {
+                var data = canvas.toDataURL('image/png');
+            }
+            catch(err)
+            {
+                alert('The image ' + logo + ' cannot be loaded because it is from another site.\n\nTo fix this you can:\n\n1. Use chrome with the \'--disable-web-security\' argument\n\nOR\n\n2. Load the image with a URL that starts with:\n\n\t' + window.location.origin);
+            }
+            var canvasImg = document.getElementById("canvasImg");
+            canvasImg.src = data;
+            canvasImg.style.display = "block";
+            
+        }, false);
+
+        var logo = gup("logo");
+        img.src = logo;
+    });
+ </script>
+ </head>
+
+ <body>                                                                  
+       <div id="qrcode"></div>
+       <img id="canvasImg" style="display: none;" alt="Right click to save me!"/>
+ </body>                                                                 
+
+</html>
