@@ -1,88 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
-
-  <title>bmbouter/qrlogo @ GitHub</title>
-
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #0f30ae;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #ffffff;
+<html>                                                                  
+ <head>                                                                  
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>          
+ <script type="text/javascript" src="https://raw.github.com/jeromeetienne/jquery-qrcode/master/jquery.qrcode.min.js"></script>
+ <script type="text/javascript">                                         
+    function gup( name )
+    {
+          name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+          var regexS = "[\\?&]"+name+"=([^&#]*)";
+          var regex = new RegExp( regexS );
+          var results = regex.exec( window.location.href );
+          if( results == null )
+            return "";
+          else
+            return results[1];
     }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #f0cf51; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #f0cf51; }
-    h3 { text-align: center; color: #f0cf51; }
-    a { color: #f0cf51; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
 
-<body>
-  <a href="https://github.com/bmbouter/qrlogo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+    $(function() {
+        var logo_x_offset = gup("logo_x_offset");
+        var logo_y_offset = gup("logo_y_offset");
+        var qr_w = gup("qr_w");
+        var qr_h = gup("qr_h");
+        var text = gup("text");
 
-  <div id="container">
+        $('#qrcode').qrcode({ width: qr_w, height: qr_h, text: text });
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var ctx = canvas.getContext("2d");  
 
-    <div class="download">
-      <a href="https://github.com/bmbouter/qrlogo/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/bmbouter/qrlogo/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
-    </div>
+        var logo_width = gup("logo_w");
+        var logo_height = gup("logo_h");
+        ctx.fillStyle = "rgb(255,255,255)";
+        ctx.fillRect(logo_x_offset, logo_y_offset, logo_width, logo_height);
 
-    <h1><a href="https://github.com/bmbouter/qrlogo">qrlogo</a>
-      <span class="small">by <a href="https://github.com/bmbouter">bmbouter</a></span></h1>
+        var img = new Image();
+        img.addEventListener('load', function () {
+            ctx.drawImage(this, logo_x_offset, logo_y_offset, logo_width, logo_height);
+            canvas.style.display = "none";
+            try
+            {
+                var data = canvas.toDataURL('image/png');
+            }
+            catch(err)
+            {
+                alert('The image ' + logo + ' cannot be loaded because it is from another site.\n\nTo fix this you can:\n\n1. Use chrome with the \'--disable-web-security\' argument\n\nOR\n\n2. Load the image with a URL that starts with:\n\n\t' + window.location.origin);
+            }
+            var canvasImg = document.getElementById("canvasImg");
+            canvasImg.src = data;
+            canvasImg.style.display = "block";
+            
+        }, false);
 
-    <div class="description">
-      Overlay your logo into QR code
-    </div>
+        var logo = gup("logo");
+        img.src = logo;
+    });
+ </script>
+ </head>
 
-    
+ <body>                                                                  
+       <div id="qrcode"></div>
+       <img id="canvasImg" style="display: none;" alt="Right click to save me!"/>
+ </body>                                                                 
 
-    
-
-    
-
-    
-
-    
-      <h2>Authors</h2>
-      <p>bmbouter (bmbouter@gmail.com)<br/>      </p>
-    
-
-    
-      <h2>Contact</h2>
-      <p> (bmbouter@gmail.com)<br/>      </p>
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/bmbouter/qrlogo/zipball/master">zip</a> or
-      <a href="https://github.com/bmbouter/qrlogo/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/bmbouter/qrlogo</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/bmbouter/qrlogo">bmbouter/qrlogo</a>
-    </div>
-
-  </div>
-
-</body>
 </html>
