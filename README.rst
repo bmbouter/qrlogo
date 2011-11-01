@@ -6,7 +6,7 @@ The qrlogo project allows you to build arbitrarily large QR codes with a logo ov
 Example Output
 ==============
 
-.. image:: blob/master/output_example.png
+.. image:: https://github.com/bmbouter/qrlogo/raw/master/output_example.png
 
 Here is the URL used to generate the above example::
 
