@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-error">
+  <strong>Oh snap!</strong>
+{% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% else %}
+  <p>You need to log in.</p>
+{% endif %}
+</div>
+{% endblock %}

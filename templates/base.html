@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="Friday Institute QR Code Builder">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  {% block head_css %}{% endblock %}
+  {% block head_js %}{% endblock %}
+</head>
+<body>
+  <header>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <a class="brand" href="{% url home_url %}">QRCode Logo</a>
+        <div class="container">
+          <ul class="nav">
+            <li class="{% block home_link_class %}{% endblock %}" ><a href="{% url home_url %}">Home</a></li>
+            <li class="{% block make_link_class %}{% endblock %}" ><a href="{% url make_url %}">Make</a></li>
+            <li class="{% block images_link_class %}{% endblock %}" ><a href="{% url images_url %}">Images</a></li>
+          </ul>
+          {% if user.is_authenticated %}
+          <ul class="nav pull-right">
+            <li><a href="{% url pass_reset_url %}">Reset password</a></li>
+            <li><a href="{% url logout_url %}">Logout</a></li>
+          </ul>
+          <span class="pull-right mid">Logged in as: {{ user.username }}</span>
+          {% else %}
+          <!--<ul class="nav pull-right">
+            <li><a href="">Forgot password</a></li>
+          </ul>-->
+          <div class="nav pull-right">
+            <form class="navbar-form" method="POST" action="{% url login_url %}">
+              {% csrf_token %}
+              <input name="username" type="text" class="input-medium" placeholder="Username" />
+              <input name="password" type="password" class="input-medium" placeholder="Password" />
+              <input name="next" type="hidden" value="/" />
+              <button type="submit" class="btn">Log in</button>
+            </form>
+          </div>
+          {% endif %}
+      </div>
+    </div>
+  </header>
+  <div class="container">
+  {% block content %}{% endblock %}
+  </div>
+  <script>
+      $(document).ajaxSend(function(event, xhr, settings) {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function sameOrigin(url) {
+            var host = document.location.host;
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                !(/^(\/\/|http:|https:).*/.test(url));
+        }
+        function safeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    });
+  {% block body_js %}{% endblock %}
+  </script>
+</body>
+</html>

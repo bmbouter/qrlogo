@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row-fluid">
+  <div class="span4">
+    {% if success %}
+      <div class="alert alert-success">
+        <p>You're password was successfully changed!</p>
+      </div>
+    {% else %}{% if current_error %}
+      <div class="alert alert-error">
+        <p>You're current password is different than the one specified.</p>
+      </div>
+    {% else %}{% if new_error %}
+      <div class="alert alert-error">
+        <p>Retype the new password again in both fields. You mistyped one of them.</p>
+      </div>
+    {% endif %}{% endif %}{% endif %}
+    <form id="resetForm" method="POST" target="{% url pass_reset_url %}" class="form-vertical">
+      <label for="current"><h5>Current Password</h5></label>
+      <input type="password" id="current" name="current" />
+
+      <label for="new1"><h5>New Password</h5></label>
+      <input type="password" id="new1" name="new1" />
+      <label for="new2"><h5>Verify New Password</h5></label>
+      <input type="password" id="new2" name="new2" />
+
+      <input type="submit" class="btn" value="Submit" />
+    </form>
+  </div>
+</div>
+{% endblock %}

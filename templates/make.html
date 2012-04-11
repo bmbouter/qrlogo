@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block make_link_class %}active{% endblock %}
+
+{% block head_css %}{% endblock %}
+{% block head_js %}
+<script type="text/javascript" src="https://raw.github.com/jeromeetienne/jquery-qrcode/master/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/qrcode.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+  <div class="span4">
+    <form id="qrForm" method="GET" target="" class="form-vertical">
+      <label for="qr_w"><h5>QR Code Width</h5></label>
+      <input type="text" id="qr_w" />
+
+      <label for="gr_h"><h5>QR Code Height</h5></label>
+      <input type="text" id="qr_h" />
+
+      <label for="logo"><h5>Logo URL</h5></label>
+      <button id="url_button" class="btn">Logo Image</button>
+      <input type="hidden" id="logo" value="" />
+
+      <label for="logo_w"><h5>Logo Width</h5></label>
+      <input type="text" id="logo_w" />
+
+      <label for="logo_h"><h5>Logo Height</h5></label>
+      <input type="text" id="logo_h" />
+
+      <label for="logo_x_offset"><h5>Logo X Offset</h5></label>
+      <input type="text" id="logo_x_offset" />
+
+      <label for="logo_y_offset"><h5>Logo Y Offset</h5></label>
+      <input type="text" id="logo_y_offset" />
+
+      <label for="text"><h5>URL or plaintext</h5></label>
+      <input type="text" id="text" />
+
+      <button id="submit" class="btn">Submit</button>
+    </form>
+  </div>
+  <div id="qr_container" class="span8">
+    <div id="qrcode"></div>
+    <img id="canvasImg" style="display: none;" alt="Right click to save me!"/>
+  </div>
+</div>
+
+
+<div id="imageSelectionPopup" class="modal">
+  <div class="model-header"><a href="#" class="close icon-remove-circle pull-left" data-dismiss="modal"></a></div>
+  <div class="modal-body">
+    <ul id="imageList" class="thumbnails">
+        {% if images|length > 0 %}
+          {% for image in images %}
+            <li class="logo span3">
+              <a href="#" class="thumbnail"><img src="{{ image.image.url }}" /></a>
+            </li>
+          {% endfor %}
+        {% else %}
+            <div class="alert alert-info">You don't have any images yet. Go to the Images page to upload them.</div>
+        {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block body_js %}
+  $("#imageSelectionPopup").modal({
+      "backdrop": false
+  }).modal("hide");
+
+  $("#imageList").delegate(".thumbnail", "click", function () {
+    $("#logo").val($(this).children("img").attr("src"));
+    $("#imageSelectionPopup").modal("hide");
+  });
+
+  $("#url_button").click(function () {
+    $("#imageSelectionPopup").modal("show");
+    $("#qrcode").hide();  //
+  });
+{% endblock %}

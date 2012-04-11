@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block images_link_class %}active{% endblock %}
+
+{% block content %}
+  <div class="well">
+    <form enctype="multipart/form-data" method="POST" action="{% url images_url %}">
+      <button type="submit" class="btn btn-primary medium"><h3>Upload</h3></button>
+      {{ form.image }}
+      <p>Images uploaded here will be available in QR codes.</p>
+    </form>
+  </div>
+<div>
+    <ul class="thumbnails">
+        {% if images|length > 0 %}
+            {% for image in images %}
+                <li class="logo span3" value="{{ image.pk }}">
+                    <div class="thumbnail">
+                        <a href="#" class="pull-left icon-remove-sign delete-icon"></a>
+                        <img src="{{ image.image.url }}" />
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">You don't have any images.</div>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block body_js %}
+  $(".logo").delegate("a", "click", function (event) {
+    $(event.delegateTarget).remove();
+    if($(".thumbnails li").length === 0) {
+      $(".thumbnails").append("<div class='alert alert-info'>You don't have any images.</div>");
+    }
+    $.post("{% url delete_image_url %}", {"pk": event.delegateTarget.value}, function (data, status, jqxhr) {
+      //success
+    });
+  });
+{% endblock %}
