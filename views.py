@@ -1,15 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from forms import ImageForm
-from models import Image
-from lazy import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView
 from django.views.static import serve
+from django.conf import settings
 
-import settings
+from forms import ImageForm
+from models import Image
+from lazy import reverse
 
 
 class HomeView(TemplateView):

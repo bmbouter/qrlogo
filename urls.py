@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings   
-import views
-import settings
+from qrlogo import views
 
 urlpatterns = patterns('',
     url(r'^$', views.HomeView.as_view(), name='home_url'),
@@ -16,4 +15,5 @@ urlpatterns = patterns('',
 if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^media/(?P<path>.*)$', views.ServeImage, name='serve_image_url'),
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/Users/bmbouter/Documents/Friday/qrlogo/run/static'}),
     )
