@@ -13,14 +13,14 @@ from lazy import reverse
 
 
 class HomeView(TemplateView):
-    template_name = "home.html"
+    template_name = "qrlogo/home.html"
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HomeView, self).dispatch(*args, **kwargs)
 
 class MakeView(TemplateView):
-    template_name = "make.html"
+    template_name = "qrlogo/make.html"
     success_url = reverse("MakeView")
 
     def get_context_data(self, **kwargs):
@@ -34,7 +34,7 @@ class MakeView(TemplateView):
         return super(MakeView, self).dispatch(*args, **kwargs)
 
 class ImagesView(CreateView):
-    template_name = "images.html"
+    template_name = "qrlogo/images.html"
     form_class = ImageForm
     success_url = reverse("ImagesView")
 
@@ -83,7 +83,7 @@ def DeleteImage(request):
 @login_required
 def PassReset(request):
     if request.method == "GET":
-        return render_to_response("passreset.html", {}, context_instance=RequestContext(request))
+        return render_to_response("qrlogo/passreset.html", {}, context_instance=RequestContext(request))
     else:
         user = request.user
         current_pass = request.POST.get("current")
@@ -101,4 +101,4 @@ def PassReset(request):
         else:
             context["current_error"] = True
 
-        return render_to_response("passreset.html", context, context_instance=RequestContext(request))
+        return render_to_response("qrlogo/passreset.html", context, context_instance=RequestContext(request))
