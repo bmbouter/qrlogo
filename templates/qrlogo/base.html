@@ -26,7 +26,7 @@
             <li><a href="{% url pass_reset_url %}">Reset password</a></li>
             <li><a href="{% url logout_url %}">Logout</a></li>
           </ul>
-          <span class="pull-right mid">Logged in as: {{ user.username }}</span>
+          <span class="pull-right" style="margin-top:10px;">Logged in as: {{ user.username }}</span>
           {% else %}
           <!--<ul class="nav pull-right">
             <li><a href="">Forgot password</a></li>
