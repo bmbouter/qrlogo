@@ -4,7 +4,7 @@
 
 {% block content %}
   <div class="well">
-    <form enctype="multipart/form-data" method="POST" action="{% url images_url %}">
+    <form enctype="multipart/form-data" method="POST" action="{% url images_url %}">{% csrf_token %}
       <button type="submit" class="btn btn-primary medium"><h3>Upload</h3></button>
       {{ form.image }}
       <p>Images uploaded here will be available in QR codes.</p>
