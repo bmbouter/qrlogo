@@ -16,7 +16,7 @@
         <p>Retype the new password again in both fields. You mistyped one of them.</p>
       </div>
     {% endif %}{% endif %}{% endif %}
-    <form id="resetForm" method="POST" target="{% url pass_reset_url %}" class="form-vertical">
+    <form id="resetForm" method="POST" target="{% url pass_reset_url %}" class="form-vertical">{% csrf_token %}
       <label for="current"><h5>Current Password</h5></label>
       <input type="password" id="current" name="current" />
 
