@@ -2,11 +2,12 @@
 
 {% block content %}
 <div class="alert alert-error">
-  <strong>Oh snap!</strong>
+  <strong>You need to login to use this tool</strong>
 {% if form.errors %}
   <p>Your username and password didn't match. Please try again.</p>
 {% else %}
-  <p>You need to log in.</p>
+  <p>Use the login form at the top right of this page, or you can request an account using the button below.</p>
+  <p>{% include "qrlogo/request_an_account.html" %}</p>
 {% endif %}
 </div>
 {% endblock %}

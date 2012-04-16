@@ -15,7 +15,6 @@ from lazy import reverse
 class HomeView(TemplateView):
     template_name = "qrlogo/home.html"
 
-    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(HomeView, self).dispatch(*args, **kwargs)
 

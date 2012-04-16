@@ -4,4 +4,19 @@
 
 {% block content %}
 
+<div class="hero-unit">
+  <p><h1>QR Code + Logo = Awesome</h1></p>
+  <div style="margin-top: 40px" class="row">
+    <div class="span3">
+      <img src="{{STATIC_URL}}qrlogo/img/ncsu_example_qrcode.png" alt="NCSU Branded QR Code logo example" width="150px" height="150px" align="left" />
+    </div>
+    <div class="span7">
+      This tool builds QR codes with logos in them.  Logos help increase brand identification, and can really make a QR code stand out through the use of color.
+      <p style="margin-top: 60px">
+        {% include "qrlogo/request_an_account.html" %}
+      </p>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
