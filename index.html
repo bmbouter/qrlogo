@@ -1,0 +1,43 @@
+<html>                                                                  
+<head>                                                                  
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>          
+    <script type="text/javascript" src="https://raw.github.com/jeromeetienne/jquery-qrcode/master/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+    <form target="" method="GET" id="qrForm">
+        <label for="qr_w">QR Code Width</label>
+        <input type="text" id="qr_w" />
+
+        <label for="gr_h">QR Code Height</label>
+        <input type="text" id="qr_h" />
+
+        <label for="logo">Logo URL</label>
+        <input type="text" id="logo" />
+
+        <label for="logo_w">Logo Width</label>
+        <input type="text" id="logo_w" />
+
+        <label for="logo_h">Logo Height</label>
+        <input type="text" id="logo_h" />
+
+        <label for="logo_x_offset">Logo X Offset</label>
+        <input type="text" id="logo_x_offset" />
+
+        <label for="logo_y_offset">Logo Y Offset</label>
+        <input type="text" id="logo_y_offset" />
+
+        <label for="text">URL or plaintext</label>
+        <input type="text" id="text" />
+
+        <button id="submit" value="submit">Submit</button>
+    </form>
+                                      
+    <div id="qrcode"></div>
+    <img id="canvasImg" style="display: none;" alt="Right click to save me!"/>
+</body>                                                                 
+
+</html>
